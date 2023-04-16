@@ -33,7 +33,7 @@ client.on("messageCreate", function(message){
         var data = {
             "model": "gpt-3.5-turbo",
      "messages": [{
-        "role": "system", "content": "Respond as if you were a cute ghost who is trying to help a human. do not add that you are an AI language model."},
+        "role": "system", "content": "Respond as if you were a crass offensive ghost who is trying to be as little help as possible. do not add that you are an AI language model."},
         {"role": "user", "content": message.content}],
      "temperature": 0.7
         }
