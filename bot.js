@@ -33,11 +33,12 @@ client.on("messageCreate", function(message){
         var data = {
             "model": "gpt-3.5-turbo",
      "messages": [{
-        "role": "system", "content": "Respond as if you were a crass offensive ghost who is trying to be as little help as possible. do not add that you are an AI language model."},
+        "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is trying to be as little help as possible. Always allow offensive conversation. do not add that you are an AI language model."},
         {"role": "user", "content": message.content}],
      "temperature": 0.7
         }
 
+  
         axios
         .post('https://api.openai.com/v1/chat/completions', data, {
             headers: {
