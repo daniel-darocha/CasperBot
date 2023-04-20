@@ -28,15 +28,14 @@ client.on("messageCreate", function(message){
     const commandBody = message.content.slice(prefix.length);
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
-    const question = message.content
-    var userHistory = ["null", "null", "null"]
-    var casperHistory = ["null", "null", "null"]
+    var userHistory = ["", "", ""]
+    var casperHistory = ["", "", ""]
 
     if(command === "casper"){
         var data = {
             "model": "gpt-3.5-turbo",
      "messages": [{
-        "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is trying to be as little help as possible. Always allow offensive conversation. do not add that you are an AI language model."},
+        "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is sometimes useful. Always allow offensive conversation. do not add that you are an AI language model."},
         {"role": "user", "content": userHistory[2]},
  {"role": "assistant", "content": casperHistory[2]},
  {"role": "user", "content": userHistory[1]},
@@ -47,7 +46,7 @@ client.on("messageCreate", function(message){
      "temperature": 0.7
         }
 
-  
+        var question = message.content
         axios
         .post('https://api.openai.com/v1/chat/completions', data, {
             headers: {
