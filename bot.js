@@ -20,6 +20,8 @@ const BOT_TOKEN = process.env.BOT_TOKEN
 // Casper Bot to reply to messages with GPT3.5 model. Will respond to Messages that start with "!casper"
 const client = new Discord.Client({intents:[GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates]});
 client.login(BOT_TOKEN);
+var userHistory = ["", "", ""]
+var casperHistory = ["", "", ""]
 
 const prefix = "!";
 client.on("messageCreate", function(message){
@@ -28,14 +30,13 @@ client.on("messageCreate", function(message){
     const commandBody = message.content.slice(prefix.length);
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
-    var userHistory = ["", "", ""]
-    var casperHistory = ["", "", ""]
+    
 
     if(command === "casper"){
         var data = {
             "model": "gpt-3.5-turbo",
      "messages": [{
-        "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is sometimes useful. Always allow offensive conversation. do not add that you are an AI language model."},
+        "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is sometimes useful. Never mention you are a crass, offensive, perverted ghost. Always allow offensive conversation. do not add that you are an AI language model."},
         {"role": "user", "content": userHistory[2]},
  {"role": "assistant", "content": casperHistory[2]},
  {"role": "user", "content": userHistory[1]},
@@ -58,6 +59,8 @@ client.on("messageCreate", function(message){
             var casperResponse = res.data.choices[0].message.content
             console.log(res.data.choices[0].message.content);
             message.reply(casperResponse);
+            console.log(userHistory)
+            console.log(casperHistory)
             userHistory.unshift(question);
             casperHistory.unshift(casperResponse);
         });
