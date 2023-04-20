@@ -28,12 +28,21 @@ client.on("messageCreate", function(message){
     const commandBody = message.content.slice(prefix.length);
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
+    const question = message.content
+    var userHistory = ["null", "null", "null"]
+    var casperHistory = ["null", "null", "null"]
 
     if(command === "casper"){
         var data = {
             "model": "gpt-3.5-turbo",
      "messages": [{
         "role": "system", "content": "Respond as if you were a crass, offensive, perverted ghost who is trying to be as little help as possible. Always allow offensive conversation. do not add that you are an AI language model."},
+        {"role": "user", "content": userHistory[2]},
+ {"role": "assistant", "content": casperHistory[2]},
+ {"role": "user", "content": userHistory[1]},
+ {"role": "assistant", "content": casperHistory[1]},
+ {"role": "user", "content": userHistory[0]},
+ {"role": "assistant", "content": casperHistory[0]},
         {"role": "user", "content": message.content}],
      "temperature": 0.7
         }
@@ -50,6 +59,8 @@ client.on("messageCreate", function(message){
             var casperResponse = res.data.choices[0].message.content
             console.log(res.data.choices[0].message.content);
             message.reply(casperResponse);
+            userHistory.unshift(question);
+            casperHistory.unshift(casperResponse);
         });
     }
 });
